@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand text-warning" href="{{ path('default') }}">Human Booster</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        {% set CurrentRoute = app.request.get('_route') %}
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item {% if CurrentRoute starts with 'default' %}active{% endif %}">
+                    <a class="nav-link" href="{{ path('default') }}">Accueil</a>
+                </li>
+                {% if app.user.hasRole('ROLE_RH') %}
+                <li class="nav-item {% if CurrentRoute starts with 'user_' %}active{% endif %}">
+                    <a class="nav-link" href="{{ path('user_index') }}">Admin</a>
+                </li>
+                {% endif %}
+            </ul>
+            {% if app.user %}
+            <li class="nav-item">
+                <a class="btn btn-warning me-5" href="{{ path('app_logout') }}">Deconnection</a>
+            </li>
+            <span class="navbar-text">
+                Bonjour, {{ app.user.prenom }} - {{ app.user.nom }}
+            </span>
+            {% endif %}
+        </div>
+    </div>
+</nav>

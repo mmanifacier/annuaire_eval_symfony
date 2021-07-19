@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <br>
+        <h1 class="display-4">Liste des employés Human Booster</h1>
+        <hr>
+        <p class="lead">Retrouvez ci-dessous la liste des employés de l'entreprise.</p>
+        <br>
+    </div>
+</div>
+
+<a class="btn btn-warning mb-3" href="{{ path('user_new') }}">Nouvel employé</a>
+<a class="btn btn-warning mb-3" href="{{ path('user_clear') }}">Supprimer anciens employés</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Email</th>
+            <th>Photo</th>
+            <th>Depart</th>
+            <th>actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.nom }}</td>
+            <td>{{ user.prenom }}</td>
+            <td>{{ user.email }}</td>
+            <td><img class="w-25" src="{{ asset('images/' ~ user.photo) }}"
+                    alt="photo {{ user.prenom }} {{ user.nom }}"></td>
+            <td>{{ user.depart ? user.depart|date('Y-m-d') : '' }}</td>
+            <td>
+                <a class="btn btn-warning" href="{{ path('user_show', {'id': user.id}) }}">Afficher</a>
+                <hr>
+                <a class="btn btn-warning" href="{{ path('user_edit', {'id': user.id}) }}">Modifier</a>
+                <hr>
+                {{ include('user/_delete_form.html.twig') }}
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="9">Aucun employé trouvé</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

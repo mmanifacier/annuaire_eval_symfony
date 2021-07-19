@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <br>
+        <h2 class="display-4">Fiche employé</h2>
+        <hr>
+        <p class="lead">Détail de la fiche employé {{ user.nom }} {{ user.prenom }}.</p>
+        <br>
+    </div>
+</div>
+
+<div class="row">
+    <h5>{{ user.nom|upper }} - {{ user.prenom|capitalize }}</h5>
+    <img class="w-50" src="{{ asset('images/' ~ user.photo) }}">
+    <p class="mt-3">Email employé : {{ user.email }}</p>
+    <p>Type de contrat : {{ user.contrat.type }}</p>
+    {% if user.contrat.type != 'CDI' %}
+    <p>Date de fin du contrat : {{ user.depart }}</p>
+    {% endif %}
+    <p>Secteur : {{ user.secteur.name }}</p>
+</div>
+<a class="btn btn-warning mt-3" href="{{ path('default') }}">Retour à a liste</a> 
+
+
+{% endblock %}

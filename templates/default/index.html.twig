@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <br>
+        <h1 class="display-4">Liste des employés Human Booster</h1>
+        <hr>
+        <p class="lead">Retrouvez ci-dessous la liste des employés de l'entreprise.</p>
+        <br>
+    </div>
+</div>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Prénom</th>
+            <th scope="col">Contrat</th>
+            <th scope="col">Email</th>
+            <th scope="col">Plus</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <th>{{ user.nom }}</th>
+            <td>{{ user.prenom }}</td>
+            <td>{{ user.contrat.type }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+                <a class="btn btn-warning" href="{{ path('default_details', {'user': user.id})}}">Details</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
